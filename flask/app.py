@@ -10,12 +10,17 @@ import opentelemetry.ext.http_requests
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import ConsoleSpanExporter
-from opentelemetry.sdk.trace.export import SimpleExportSpanProcessor
+from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
 
 trace.set_tracer_provider(TracerProvider())
-trace.get_tracer_provider().add_span_processor(
-    SimpleExportSpanProcessor(ConsoleSpanExporter())
+tracer = trace.get_tracer(__name__)
+span_processor = BatchExportSpanProcessor(exporter)
+
+exporter = CollectorSpanExporter(
+    service_name="basic-service", endpoint="localhost:55678"
 )
+
+trace.get_tracer_provider().add_span_processor(span_processor)
 
 app = flask.Flask(__name__)
 opentelemetry.ext.http_requests.enable(trace.get_tracer_provider())
