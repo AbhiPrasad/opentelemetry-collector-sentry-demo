@@ -1,5 +1,6 @@
 version: '3'
 
+services:
   # Collector
   collector:
     image: omnition/opentelemetry-collector-contrib:latest
@@ -25,7 +26,7 @@ version: '3'
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 3003:30003
+      - 3003:3003
     environment:
       PORT: 3003
       FLASK_ENV: 'test'

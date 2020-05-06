@@ -9,16 +9,16 @@ import os
 import opentelemetry.ext.http_requests
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import ConsoleSpanExporter
 from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
-
-trace.set_tracer_provider(TracerProvider())
-tracer = trace.get_tracer(__name__)
-span_processor = BatchExportSpanProcessor(exporter)
+from opentelemetry.ext.otcollector.trace_exporter import CollectorSpanExporter
 
 exporter = CollectorSpanExporter(
     service_name="basic-service", endpoint="localhost:55678"
 )
+
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+span_processor = BatchExportSpanProcessor(exporter)
 
 trace.get_tracer_provider().add_span_processor(span_processor)
 
@@ -36,5 +36,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    port = os.environ['PORT']
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True)
