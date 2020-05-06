@@ -1,9 +1,14 @@
 version: '3'
+
 services:
+
   flask:
     build:
       context: ./flask
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 
+      - 3003:3003
+    environment:
+      PORT: 3003
+      FLASK_ENV: 'test'
