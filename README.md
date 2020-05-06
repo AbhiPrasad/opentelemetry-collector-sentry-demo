@@ -12,5 +12,13 @@ Shows how to use the Open Telemetry Sentry exporter (WIP) to send Open Telemetry
 - Traces are then exported to Sentry through an custom Open Telemetry exporter (not yet built)
 - Collects and displays traces in an Sentry instance
 
-## Initial Setup
+## To Run
+
+Make sure you have docker installed.
+
+```
+docker-compose up
+```
+
+
 

@@ -8,22 +8,24 @@ import os
 
 import opentelemetry.ext.http_requests
 from opentelemetry import trace
+
+from opentelemetry.ext.flask import instrument_app
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
 from opentelemetry.ext.otcollector.trace_exporter import CollectorSpanExporter
+
+trace.set_tracer_provider(TracerProvider())
 
 exporter = CollectorSpanExporter(
     service_name="basic-service", endpoint="localhost:55678"
 )
 
-trace.set_tracer_provider(TracerProvider())
-tracer = trace.get_tracer(__name__)
 span_processor = BatchExportSpanProcessor(exporter)
-
 trace.get_tracer_provider().add_span_processor(span_processor)
 
 app = flask.Flask(__name__)
-opentelemetry.ext.http_requests.enable(trace.get_tracer_provider())
+instrument_app(app)
+opentelemetry.ext.http_requests.RequestsInstrumentor().instrument()
 
 @app.route("/")
 def hello():
@@ -33,7 +35,6 @@ def hello():
             with tracer.start_as_current_span('baz'):
                 requests.get("http://www.example.com")
     return "hello"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
