@@ -4,6 +4,7 @@ FlaskInstrumentor().instrument()  # This needs to be executed before importing F
 
 import flask
 import requests
+import os
 
 import opentelemetry.ext.http_requests
 from opentelemetry import trace
@@ -22,10 +23,13 @@ opentelemetry.ext.http_requests.enable(trace.get_tracer_provider())
 @app.route("/")
 def hello():
     tracer = trace.get_tracer(__name__)
-    with tracer.start_as_current_span("example-request"):
-        requests.get("http://www.example.com")
+    with tracer.start_as_current_span('foo'):
+        with tracer.start_as_current_span('bar'):
+            with tracer.start_as_current_span('baz'):
+                requests.get("http://www.example.com")
     return "hello"
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    port = os.environ['PORT']
+    app.run(debug=True, host='0.0.0.0', port=port)
