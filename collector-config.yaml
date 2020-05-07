@@ -3,9 +3,9 @@ receivers:
     endpoint: "0.0.0.0:55678"
 
 exporters:
-  jaeger_grpc:
-    endpoint: jaeger-all-in-one:14250
   logging: {}
+  file:
+    path: ./test_data.json
 
 processors:
   batch:
@@ -15,5 +15,5 @@ service:
   pipelines:
     traces:
       receivers: [opencensus]
-      exporters: [jaeger_grpc, logging]
+      exporters: [logging, file]
       processors: [batch, queued_retry]
