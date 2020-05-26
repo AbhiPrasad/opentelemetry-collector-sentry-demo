@@ -13,15 +13,17 @@ There are two examples in this demo. One is a script you can run against a runni
 
 Make sure you have docker installed.
 
-Clone the `opentelemetry-collector-contrib`.
+In another folder, clone the `opentelemetry-collector-contrib` repo.
 
 ```bash
 git clone git@github.com:getsentry/opentelemetry-collector-contrib.git
 ```
 
-Run `make docker-otelcontribcol` to build the docker image.
+Run `make docker-otelcontribcol` to build the docker image. It should be tagged as `otelcontribcol:latest`. If you have another image you prefer to use, change the image used in the `docker-compose`.
 
 ## Simple Example
+
+Change directory to the simple example
 
 
 

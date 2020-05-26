@@ -15,7 +15,7 @@ exporters:
   logging:
     loglevel: debug
   sentry:
-    dsn: # ADD DSN HERE
+    dsn: 
 
 processors:
   batch:

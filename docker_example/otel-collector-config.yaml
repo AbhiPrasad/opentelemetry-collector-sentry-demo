@@ -5,7 +5,7 @@ receivers:
 exporters:
   logging:
   sentry:
-    dsn: # ADD DSN HERE
+    dsn: 
 
 processors:
   batch:
