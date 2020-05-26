@@ -1,9 +1,0 @@
-{
-  "resource": {"labels":{}},
-  "node": {"identifier":{"hostName":"Abhijeets-MBP.phub.net.cable.rogers.com","pid":15103,"startTimestamp":"2020-05-14T19:35:22.082787072Z"},"libraryInfo":{"language":"PYTHON","exporterVersion":"0.6b0","coreLibraryVersion":"0.6b0"},"serviceInfo":{"name":"basic-service"}},
-  "spans": [
-    {"traceId":"QmowQxHwjd8V2yaO/MVhTQ==","spanId":"PmscvPBM6wA=","parentSpanId":"qdlZ7tzuITQ=","name":{"value":"baz"},"startTime":"2020-05-14T19:35:22.097600Z","endTime":"2020-05-14T19:35:22.097672Z","status":{}},
-    {"traceId":"QmowQxHwjd8V2yaO/MVhTQ==","spanId":"qdlZ7tzuITQ=","parentSpanId":"sZC6Hk1Ue8Q=","name":{"value":"bar"},"startTime":"2020-05-14T19:35:22.097569Z","endTime":"2020-05-14T19:35:22.097691Z","status":{}},
-    {"traceId":"QmowQxHwjd8V2yaO/MVhTQ==","spanId":"sZC6Hk1Ue8Q=","parentSpanId":"AAAAAAAAAAA=","name":{"value":"foo"},"startTime":"2020-05-14T19:35:22.097490Z","endTime":"2020-05-14T19:35:22.097698Z","status":{}}
-  ]
-}

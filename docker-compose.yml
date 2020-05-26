@@ -1,37 +1,47 @@
-version: '3'
-
+version: "3"
 services:
-  # Flask
-  flask:
-    build:
-      context: ./flask
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - 3003:3003
-    environment:
-      PORT: 3003
-      FLASK_ENV: 'test'
-
-  # jaeger-all-in-one:
-  #   image: jaegertracing/all-in-one:latest
-  #   ports:
-  #     - "16686:16686"
-  #     - "6831:6831/udp"
-  #     - "6832:6832/udp"
-  #     - "14268"
-  #     - "14250"
-  #   depends_on:
-  #     - flask
-
   # Collector
-  collector:
+  otel-collector:
     image: otelcontribcol:latest
-    command: ["--config=/conf/collector-config.yaml", "--log-level=DEBUG"]
+    command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
     volumes:
-      - ./collector-config.yaml:/conf/collector-config.yaml
-      - ./test_data.json:/./test_data.json
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
-      - "55678:55678"
-    # depends_on:
-    #   - jaeger-all-in-one
+      - "1888:1888" # pprof extension
+      - "13133:13133" # health_check extension
+      - "55678" # OpenCensus receiver
+      - "55680:55679" # zpages extension
+    depends_on:
+      - jaeger-all-in-one
+      - zipkin-all-in-one
+
+  # Agent
+  otel-agent:
+    image: otelcontribcol:latest
+    command: ["--config=/etc/otel-agent-config.yaml", "${OTELCOL_ARGS}"]
+    volumes:
+      - ./otel-agent-config.yaml:/etc/otel-agent-config.yaml
+    ports:
+      - "1777:1777" # pprof extension
+      - "14268" # Jaeger receiver
+      - "55678" # OpenCensus receiver
+      - "55679:55679" # zpages extension
+      - "13133" # health_check
+    depends_on:
+      - otel-collector
+
+  # Synthetic load generators
+  jaeger-emitter:
+    image: omnition/synthetic-load-generator:1.0.25
+    environment:
+      - JAEGER_COLLECTOR_URL=http://otel-agent:14268
+    depends_on:
+      - otel-agent
+
+  zipkin-emitter:
+    image: omnition/synthetic-load-generator:1.0.25
+    environment:
+      - ZIPKINV2_JSON_URL=http://otel-agent:9411/api/v2/spans
+    depends_on:
+      - otel-agent
+
