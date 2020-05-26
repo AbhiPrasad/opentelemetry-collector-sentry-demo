@@ -1,9 +1,9 @@
 receivers:
   opencensus:
-    endpoint: 0.0.0.0:55678
+    endpoint: "0.0.0.0:55678"
 
 exporters:
-  logging:
+  logging: {}
   sentry:
     dsn: # INSERT DSN HERE
 
@@ -11,15 +11,7 @@ processors:
   batch:
   queued_retry:
 
-extensions:
-  health_check:
-  pprof:
-    endpoint: :1888
-  zpages:
-    endpoint: :55679
-
 service:
-  extensions: [pprof, zpages, health_check]
   pipelines:
     traces:
       receivers: [opencensus]
