@@ -1,0 +1,33 @@
+{
+    "start_timestamp": "2020-05-20T17:58:52Z",
+    "timestamp": "2020-05-20T17:58:52Z",
+    "type": "transaction",
+    "transaction": "foo",
+    "contexts": {
+        "trace": {
+            "trace_id": "a278b3a0f3c6919c7ab586e13c9b2ae3",
+            "span_id": "68bffdc6bc4e7f28",
+            "description": "foo"
+        }
+    },
+    "spans": [
+        {
+            "start_timestamp": "2020-05-20T17:58:52Z",
+            "timestamp": "2020-05-20T17:58:52Z",
+            "trace_id": "a278b3a0f3c6919c7ab586e13c9b2ae3",
+            "span_id": "5c08ae082c9e5b17",
+            "parent_span_id": "68bffdc6bc4e7f28",
+            "description": "bar",
+            "status": "ok"
+        },
+        {
+            "start_timestamp": "2020-05-20T17:58:52Z",
+            "timestamp": "2020-05-20T17:58:52Z",
+            "trace_id": "a278b3a0f3c6919c7ab586e13c9b2ae3",
+            "span_id": "a710ad5a5eb51071",
+            "parent_span_id": "5c08ae082c9e5b17",
+            "description": "baz",
+            "status": "ok"
+        }
+    ]
+}
