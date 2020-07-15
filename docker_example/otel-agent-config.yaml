@@ -8,14 +8,13 @@ receivers:
       thrift_http:
         endpoint: "0.0.0.0:14268"
 
-
 exporters:
   opencensus:
     endpoint: "otel-collector:55678"
   logging:
     loglevel: debug
   sentry:
-    dsn: # INSERT DSN HERE
+    dsn: http://48b95f02bef84e17abde966511294457@host.docker.internal:8000/8 # replace with your own DSN
 
 processors:
   batch:
