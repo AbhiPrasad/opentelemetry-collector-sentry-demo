@@ -8,15 +8,19 @@ There are two examples in this demo. One is a script you can run against a runni
 
 ## Setup
 
-Make sure you have docker and Python3 installed.
+Make sure you have docker and go installed.
+
+Clone this repo:
+
+```
+git clone git@github.com:AbhiPrasad/opentelemetry-collector-sentry-demo.git
+```
 
 In another folder, clone the `opentelemetry-collector-contrib` repo.
 
 ```bash
 git clone git@github.com:getsentry/opentelemetry-collector-contrib.git --branch sentryexporter
 ```
-
-Run `make docker-otelcontribcol` to build the docker image. It should be tagged as `otelcontribcol:latest`. If you have another image you prefer to use, change the image used in the `docker-compose`.
 
 ## Simple Example
 
@@ -62,13 +66,13 @@ Run the opentelemetry collector.
 
 ```bash
 cd path/to/cloned/opentelemetry-collector-contrib
-make otelcontribcol && GO111MODULE=on go run --race ./cmd/otelcontribcol/... --config "PATH_TO/opentelemetry-collector-demo/simple_example/config.yaml"  --metrics-addr "localhost:1337"
+make otelcontribcol && GO111MODULE=on go run --race ./cmd/otelcontribcol/... --config "PATH_TO/opentelemetry-collector-sentry-demo/simple_example/config.yaml"  --metrics-addr "localhost:1337"
 ```
 
 Run the demo script
 
 ```bash
-cd path/to/cloned/opentelemetry-collector-demo/simple_example
+cd path/to/cloned/opentelemetry-collector-sentry-demo/simple_example
 python script.py
 ```
 
@@ -78,13 +82,20 @@ You should see a trace now appear in Sentry.
 
 #### Note: this example generates fake traces using a synthetic load generator, so it is recommended that a local sentry install be used to prevent sentry quota issues.
 
-Enter the example folder.
+Enter the cloned project and build the docker image. It should be tagged as `otelcontribcol:latest`. If you have another image you prefer to use, change the image used in the `docker-compose`.
 
 ```bash
-cd docker_example
+cd path/to/cloned/opentelemetry-collector-contrib
+make docker-otelcontribcol
 ```
 
-Add a DSN to the `otel-agent-config.yaml` and `otel-collector-config.yaml` configs
+Now, navigate to the `docker_example` folder from the demo.
+
+```bash
+cd path/to/cloned/opentelemetry-collector-sentry-demo/docker_example
+```
+
+Add your Sentry project DSN to the `otel-agent-config.yaml` and `otel-collector-config.yaml` configs
 
 If you are using a local sentry install, make sure to use `host.docker.internal` so docker can resolve the hosts properly
 

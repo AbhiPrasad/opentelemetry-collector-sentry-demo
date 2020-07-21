@@ -5,7 +5,7 @@ receivers:
 exporters:
   logging: {}
   sentry:
-    dsn: http://48b95f02bef84e17abde966511294457@host.docker.internal:8000/8 # Replace this with your own DSN
+    dsn: http://69e5dabe7bf446d78ee18dbbe133480e@o1.ingest.localhost:8000/8 # Replace this with your own DSN
 
 processors:
   batch:
