@@ -19,7 +19,7 @@ git clone git@github.com:AbhiPrasad/opentelemetry-collector-sentry-demo.git
 In another folder, clone the `opentelemetry-collector-contrib` repo.
 
 ```bash
-git clone git@github.com:getsentry/opentelemetry-collector-contrib.git --branch sentryexporter
+git clone git@github.com:getsentry/opentelemetry-collector-contrib.git
 ```
 
 ## Simple Example
