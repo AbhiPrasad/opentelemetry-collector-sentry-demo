@@ -1,5 +1,7 @@
 # opentelemetry-collector-sentry-demo
 
+Hey, interested in a better way to integrate Sentry and OpenTelemetry? Please see: https://github.com/getsentry/sentry/discussions/40712
+
 ## Summary:
 
 Shows how to use the Open Telemetry Sentry exporter (WIP) to send Open Telemetry traces to Sentry through the [Open Telemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
