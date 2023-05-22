@@ -5,4 +5,4 @@ opentelemetry-sdk==0.6b0
 opentelemetry-ext-http-requests==0.6b0
 opentelemetry-auto-instrumentation==0.6b0
 opentelemetry-ext-otcollector==0.6b0
-requests==2.23.0
+requests==2.31.0
